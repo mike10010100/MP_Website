@@ -1,0 +1,67 @@
+/* lightest to darkest */
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  font-family: "Open Sans",sans-serif; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer; }
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #193441; }
+  body > #container {
+    min-height: 100%;
+    position: relative;
+    height: 100%; }
+    body > #container > header {
+      width: 100%;
+      box-shadow: 0px 2px 1px #3e606f; }
+      body > #container > header > #title {
+        padding: 12px 0px 12px 30px;
+        color: #d1dbbd;
+        font-size: 42px;
+        font-weight: 300;
+        text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.8), 0px 1px 0px rgba(255, 255, 255, 0.4); }
+        body > #container > header > #title > .navigation {
+          float: right;
+          display: inline; }
+          body > #container > header > #title > .navigation > span {
+            display: block;
+            float: left;
+            text-decoration: none;
+            font-size: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2); }
+            body > #container > header > #title > .navigation > span .current_page_item a {
+              color: #fcfff5 !important; }
+            body > #container > header > #title > .navigation > span > a:hover {
+              color: #fcfff5; }
+          body > #container > header > #title > .navigation > #magic-line {
+            position: absolute;
+            padding-top: 5px;
+            top: 66px;
+            left: 0;
+            width: 100px;
+            background: #91aa9d; }
+    body > #container footer {
+      color: #3e606f;
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40px; }
+
+/*# sourceMappingURL=structure.css.map */
