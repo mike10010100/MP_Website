@@ -72,4 +72,14 @@ body {
         width: 100%;
         height: 2px; }
 
-/*# sourceMappingURL=structure.css.map */
+body .body {
+  text-align: center;
+  font-size: 25px;
+  height: 90vh;
+  padding-top: 10vh;
+  color: #d1dbbd;
+  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.8), 0px 1px 0px rgba(255, 255, 255, 0.4); }
+  body .body #headshot {
+    margin-bottom: 2%; }
+
+/*# sourceMappingURL=index.css.map */
