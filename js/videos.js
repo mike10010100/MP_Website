@@ -16,29 +16,45 @@
  *
  */
 
-/*YouTube Carousel Code*/
+ /*YouTube Carousel Code*/
 
-/*List of YouTube videos - you need just the video ID for this (ex:)*/
-var yt_videos = ['CniOgbpLEd8',
-'Vzf97_2pXbQ',
-'Jt7Ryhyhnuo',
-'uscmIf_HFjs',
-'XffAUETbFmg',
-'qHvebJpfbXI',
-'BPNPc703ciE',
-'WlzAQRmo_F0'];
+ /*List of YouTube videos - you need just the video ID for this (ex:)*/
 
-/*Video height and width*/
-var $headerfooter=$("header").height()+$("footer").height();
-var $bodyheight=$(window).height()-$headerfooter;
-var $wrapperheight = .8*$bodyheight;
-var $videopos = .1*$wrapperheight;
-var yt_height = 419;
-var yt_width = 766;
 
-/*-----DO NOT EDIT BELOW THIS-----*/
-jQuery(document).ready(function () {
+ /*Video height and width*/
+ var $headerfooter=$("header").height()+$("footer").height();
+ var $bodyheight=$(window).height()-$headerfooter;
+ var $wrapperheight = .8*$bodyheight;
+ var $videopos = .1*$wrapperheight;
+ var yt_height = 419;
+ var yt_width = 766;
+
+ /*-----DO NOT EDIT BELOW THIS-----*/
+ jQuery(document).ready(function () {
   var yt_html = "";
+
+  var yt_videos = [];
+
+  jQuery.ajax({url:'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLEX-_F3-HYxaWz3X8wkWmhFqM7F3_gWaS&key=AIzaSyAyOxip_T9wTqSWVv-OX060s-OnyYbQAJ0', async:false, success: function(result){
+    for (var i = 0; i < result.items.length; i++){
+      yt_videos.push(result.items[i].snippet.resourceId.videoId);
+    }
+  }});
+
+  console.log(yt_videos);
+
+
+//some default videos
+  if(yt_videos == []){
+    yt_videos = ['CniOgbpLEd8',
+    'Vzf97_2pXbQ',
+    'Jt7Ryhyhnuo',
+    'uscmIf_HFjs',
+    'XffAUETbFmg',
+    'qHvebJpfbXI',
+    'BPNPc703ciE',
+    'WlzAQRmo_F0'];
+  }
 
   for (var num=0, len=yt_videos.length; num<len; ++num){
     yt_html = yt_html + "<li><a onclick='change_embeded(\"" + yt_videos[num] + "\")'><img src='http://img.youtube.com/vi/"+yt_videos[num]+"/2.jpg' class='myimage' style='max-height:75px;' /></a></li>";
@@ -47,7 +63,7 @@ jQuery(document).ready(function () {
   jQuery('#yt_container').html('<div id="yt_videosurround"><div id="yt_embededvideo"><object width="'+ yt_width +'" height="'+ yt_height +'"><param name="movie" value="http://www.youtube.com/v/'+ yt_videos[0] +'?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/'+ yt_videos[0] +'?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="'+ yt_width +'" height="'+ yt_height +'" allowscriptaccess="always" allowfullscreen="true" wmode="transparent"></embed></object></div></div><ul id="mycarousel" class="jcarousel-skin-tango">'+yt_html+'</ul>');
   var embeded_cssObj = {
     'width' : yt_width,
-  'height' : yt_height
+    'height' : yt_height
   } 
   jQuery('#yt_embededvideo').css(embeded_cssObj);
   jQuery('#yt_videosurround').css(embeded_cssObj);
@@ -65,36 +81,36 @@ function change_embeded(video_id){
 (function(g) {
   var q = {
     vertical: !1,
-  rtl: !1,
-  start: 1,
-  offset: 1,
-  size: null,
-  scroll: 3,
-  visible: null,
-  animation: "normal",
-  easing: "swing",
-  auto: 0,
-  wrap: null,
-  initCallback: null,
-  setupCallback: null,
-  reloadCallback: null,
-  itemLoadCallback: null,
-  itemFirstInCallback: null,
-  itemFirstOutCallback: null,
-  itemLastInCallback: null,
-  itemLastOutCallback: null,
-  itemVisibleInCallback: null,
-  itemVisibleOutCallback: null,
-  animationStepCallback: null,
-  buttonNextHTML: "<div></div>",
-  buttonPrevHTML: "<div></div>",
-  buttonNextEvent: "click",
-  buttonPrevEvent: "click",
-  buttonNextCallback: null,
-  buttonPrevCallback: null,
-  itemFallbackDimension: null
+    rtl: !1,
+    start: 1,
+    offset: 1,
+    size: null,
+    scroll: 3,
+    visible: null,
+    animation: "normal",
+    easing: "swing",
+    auto: 0,
+    wrap: null,
+    initCallback: null,
+    setupCallback: null,
+    reloadCallback: null,
+    itemLoadCallback: null,
+    itemFirstInCallback: null,
+    itemFirstOutCallback: null,
+    itemLastInCallback: null,
+    itemLastOutCallback: null,
+    itemVisibleInCallback: null,
+    itemVisibleOutCallback: null,
+    animationStepCallback: null,
+    buttonNextHTML: "<div></div>",
+    buttonPrevHTML: "<div></div>",
+    buttonNextEvent: "click",
+    buttonPrevEvent: "click",
+    buttonNextCallback: null,
+    buttonPrevCallback: null,
+    itemFallbackDimension: null
   },
-      m = !1;
+  m = !1;
   g(window).bind("load.jcarousel", function() {
     m = !0
   });
@@ -111,43 +127,43 @@ function change_embeded(video_id){
         b = d[f];
         break
       }
-    a.nodeName.toUpperCase() == "UL" || a.nodeName.toUpperCase() == "OL" ? (this.list = g(a), this.clip = this.list.parents(".jcarousel-clip"), this.container = this.list.parents(".jcarousel-container")) : (this.container = g(a), this.list = this.container.find("ul,ol").eq(0), this.clip = this.container.find(".jcarousel-clip"));
-    if (this.clip.size() === 0) this.clip = this.list.wrap("<div></div>").parent();
-    if (this.container.size() === 0) this.container = this.clip.wrap("<div></div>").parent();
-    b !== "" && this.container.parent()[0].className.indexOf("jcarousel-skin") == -1 && this.container.wrap('<div class=" ' + b + '"></div>');
-    this.buttonPrev = g(".jcarousel-prev", this.container);
-    if (this.buttonPrev.size() === 0 && this.options.buttonPrevHTML !== null) this.buttonPrev = g(this.options.buttonPrevHTML).appendTo(this.container);
-    this.buttonPrev.addClass(this.className("jcarousel-prev"));
-    this.buttonNext = g(".jcarousel-next", this.container);
-    if (this.buttonNext.size() === 0 && this.options.buttonNextHTML !== null) this.buttonNext = g(this.options.buttonNextHTML).appendTo(this.container);
-    this.buttonNext.addClass(this.className("jcarousel-next"));
-    this.clip.addClass(this.className("jcarousel-clip")).css({
-      position: "relative"
-    });
-    this.list.addClass(this.className("jcarousel-list")).css({
-      overflow: "hidden",
-      position: "relative",
-      top: 0,
-      margin: 0,
-      padding: 0
-    }).css(this.options.rtl ? "right" : "left", 0);
-    this.container.addClass(this.className("jcarousel-container")).css({
-      position: "relative"
-    });
-    !this.options.vertical && this.options.rtl && this.container.addClass("jcarousel-direction-rtl").attr("dir", "rtl");
-    var j = this.options.visible !== null ? Math.ceil(this.clipping() / this.options.visible) : null,
-        b = this.list.children("li"),
-        e = this;
-    if (b.size() > 0) {
-      var h = 0,
-        i = this.options.offset;
-      b.each(function() {
-        e.format(this, i++);
-        h += e.dimension(this, j)
+      a.nodeName.toUpperCase() == "UL" || a.nodeName.toUpperCase() == "OL" ? (this.list = g(a), this.clip = this.list.parents(".jcarousel-clip"), this.container = this.list.parents(".jcarousel-container")) : (this.container = g(a), this.list = this.container.find("ul,ol").eq(0), this.clip = this.container.find(".jcarousel-clip"));
+      if (this.clip.size() === 0) this.clip = this.list.wrap("<div></div>").parent();
+      if (this.container.size() === 0) this.container = this.clip.wrap("<div></div>").parent();
+      b !== "" && this.container.parent()[0].className.indexOf("jcarousel-skin") == -1 && this.container.wrap('<div class=" ' + b + '"></div>');
+      this.buttonPrev = g(".jcarousel-prev", this.container);
+      if (this.buttonPrev.size() === 0 && this.options.buttonPrevHTML !== null) this.buttonPrev = g(this.options.buttonPrevHTML).appendTo(this.container);
+      this.buttonPrev.addClass(this.className("jcarousel-prev"));
+      this.buttonNext = g(".jcarousel-next", this.container);
+      if (this.buttonNext.size() === 0 && this.options.buttonNextHTML !== null) this.buttonNext = g(this.options.buttonNextHTML).appendTo(this.container);
+      this.buttonNext.addClass(this.className("jcarousel-next"));
+      this.clip.addClass(this.className("jcarousel-clip")).css({
+        position: "relative"
       });
-      this.list.css(this.wh, h + 100 + "px");
-      if (!c || c.size === void 0) this.options.size = b.size()
-    }
+      this.list.addClass(this.className("jcarousel-list")).css({
+        overflow: "hidden",
+        position: "relative",
+        top: 0,
+        margin: 0,
+        padding: 0
+      }).css(this.options.rtl ? "right" : "left", 0);
+      this.container.addClass(this.className("jcarousel-container")).css({
+        position: "relative"
+      });
+      !this.options.vertical && this.options.rtl && this.container.addClass("jcarousel-direction-rtl").attr("dir", "rtl");
+      var j = this.options.visible !== null ? Math.ceil(this.clipping() / this.options.visible) : null,
+      b = this.list.children("li"),
+      e = this;
+      if (b.size() > 0) {
+        var h = 0,
+        i = this.options.offset;
+        b.each(function() {
+          e.format(this, i++);
+          h += e.dimension(this, j)
+        });
+        this.list.css(this.wh, h + 100 + "px");
+        if (!c || c.size === void 0) this.options.size = b.size()
+      }
     this.container.css("display", "block");
     this.buttonNext.css("display", "block");
     this.buttonPrev.css("display", "block");
@@ -203,9 +219,9 @@ function change_embeded(video_id){
       this.options.reloadCallback !== null && this.options.reloadCallback(this);
       if (this.options.visible !== null) {
         var a = this,
-          c = Math.ceil(this.clipping() / this.options.visible),
-            b = 0,
-            d = 0;
+        c = Math.ceil(this.clipping() / this.options.visible),
+        b = 0,
+        d = 0;
         this.list.children("li").each(function(f) {
           b += a.dimension(this, c);
           f + 1 < a.first && (d = b)
@@ -234,22 +250,22 @@ function change_embeded(video_id){
         var d = this.get(b);
         if (!d.length || d.hasClass("jcarousel-item-placeholder")) return !1
       }
-      return !0
-    },
-    get: function(a) {
-      return g(">.jcarousel-item-" + a, this.list)
-    },
-    add: function(a, c) {
-      var b = this.get(a),
-      d = 0,
-      p = g(c);
-      if (b.length === 0)
-        for (var j, e = f.intval(a), b = this.create(a);;) {
-          if (j = this.get(--e), e <= 0 || j.length) {
-            e <= 0 ? this.list.prepend(b) : j.after(b);
-            break
-          }
-        } else d = this.dimension(b);
+    return !0
+  },
+  get: function(a) {
+    return g(">.jcarousel-item-" + a, this.list)
+  },
+  add: function(a, c) {
+    var b = this.get(a),
+    d = 0,
+    p = g(c);
+    if (b.length === 0)
+      for (var j, e = f.intval(a), b = this.create(a);;) {
+        if (j = this.get(--e), e <= 0 || j.length) {
+          e <= 0 ? this.list.prepend(b) : j.after(b);
+          break
+        }
+      } else d = this.dimension(b);
       p.get(0).nodeName.toUpperCase() == "LI" ? (b.replaceWith(p), b = p) : b.empty().append(c);
       this.format(b.removeClass(this.className("jcarousel-item-placeholder")), a);
       p = this.options.visible !== null ? Math.ceil(this.clipping() / this.options.visible) : null;
@@ -277,7 +293,7 @@ function change_embeded(video_id){
       if (!this.locked && !this.animating && this.tail) {
         this.pauseAuto();
         var c = f.intval(this.list.css(this.lt)),
-            c = !a ? c - this.tail : c + this.tail;
+        c = !a ? c - this.tail : c + this.tail;
         this.inTail = !a;
         this.prevFirst = this.first;
         this.prevLast = this.last;
@@ -300,137 +316,137 @@ function change_embeded(video_id){
         k && (i += l);
         if (this.first !== null && (this.options.wrap == "circular" || e >= 1 && (this.options.size === null || e <= this.options.size))) b = d ? b + l : b - l
       }
-      for (var g = this.clipping(), m = [], o = 0, n = 0, j = this.get(a - 1), e = a; ++o;) {
-        h = this.get(e);
-        k = !h.length;
-        if (h.length === 0) {
-          h = this.create(e).addClass(this.className("jcarousel-item-placeholder"));
-          if (j.length === 0) this.list.prepend(h);
-          else j[d ? "before" : "after"](h);
-          if (this.first !== null && this.options.wrap == "circular" && this.options.size !== null && (e <= 0 || e > this.options.size)) j = this.get(this.index(e)), j.length && (h = this.add(e, j.clone(!0)))
-        }
-        j = h;
-        l = this.dimension(h);
-        if (l === 0) throw Error("jCarousel: No width/height set for items. This will cause an infinite loop. Aborting...");
-        this.options.wrap != "circular" && this.options.size !== null && e > this.options.size ? m.push(h) : k && (i += l);
-        n += l;
-        if (n >= g) break;
-        e++
+    for (var g = this.clipping(), m = [], o = 0, n = 0, j = this.get(a - 1), e = a; ++o;) {
+      h = this.get(e);
+      k = !h.length;
+      if (h.length === 0) {
+        h = this.create(e).addClass(this.className("jcarousel-item-placeholder"));
+        if (j.length === 0) this.list.prepend(h);
+        else j[d ? "before" : "after"](h);
+        if (this.first !== null && this.options.wrap == "circular" && this.options.size !== null && (e <= 0 || e > this.options.size)) j = this.get(this.index(e)), j.length && (h = this.add(e, j.clone(!0)))
       }
-      for (h = 0; h < m.length; h++) m[h].remove();
-      i > 0 && (this.list.css(this.wh, this.dimension(this.list) + i + "px"), d && (b -= i, this.list.css(this.lt, f.intval(this.list.css(this.lt)) - i + "px")));
-      i = a + o - 1;
-      if (this.options.wrap != "circular" && this.options.size && i > this.options.size) i = this.options.size;
-      if (e > i) {
-        o = 0;
-        e = i;
-        for (n = 0; ++o;) {
-          h = this.get(e--);
-          if (!h.length) break;
-          n += this.dimension(h);
-          if (n >= g) break
-        }
-      }
-      e = i - o + 1;
-      this.options.wrap != "circular" && e < 1 && (e = 1);
-      if (this.inTail && d) b += this.tail, this.inTail = !1;
-      this.tail = null;
-      if (this.options.wrap != "circular" && i == this.options.size && i - o + 1 >= 1 && (d = f.intval(this.get(i).css(!this.options.vertical ? "marginRight" : "marginBottom")), n - d > g)) this.tail = n - g - d;
-      if (c && a === this.options.size && this.tail) b -= this.tail, this.inTail = !0;
-      for (; a-- > e;) b += this.dimension(this.get(a));
-      this.prevFirst = this.first;
-      this.prevLast = this.last;
-      this.first = e;
-      this.last = i;
-      return b
-    },
-    animate: function(a, c) {
-      if (!this.locked && !this.animating) {
-        this.animating = !0;
-        var b = this,
-            d = function() {
-              b.animating = !1;
-              a === 0 && b.list.css(b.lt, 0);
-              !b.autoStopped && (b.options.wrap == "circular" || b.options.wrap == "both" || b.options.wrap == "last" || b.options.size === null || b.last < b.options.size || b.last == b.options.size && b.tail !== null && !b.inTail) && b.startAuto();
-              b.buttons();
-              b.notify("onAfterAnimation");
-              if (b.options.wrap == "circular" && b.options.size !== null)
-                for (var c = b.prevFirst; c <= b.prevLast; c++) c !== null && !(c >= b.first && c <= b.last) && (c < 1 || c > b.options.size) && b.remove(c)
-            };
-        this.notify("onBeforeAnimation");
-        if (!this.options.animation || c === !1) this.list.css(this.lt, a + "px"), d();
-        else {
-          var f = !this.options.vertical ? this.options.rtl ? {
-            right: a
-          } : {
-            left: a
-          } : {
-            top: a
-          },
-            d = {
-              duration: this.options.animation,
-              easing: this.options.easing,
-              complete: d
-            };
-            if (g.isFunction(this.options.animationStepCallback)) d.step = this.options.animationStepCallback;
-            this.list.animate(f, d)
-        }
-      }
-    },
-    startAuto: function(a) {
-      if (a !== void 0) this.options.auto = a;
-      if (this.options.auto === 0) return this.stopAuto();
-      if (this.timer === null) {
-        this.autoStopped = !1;
-        var c = this;
-        this.timer = window.setTimeout(function() {
-          c.next()
-        }, this.options.auto * 1E3)
-      }
-    },
-    stopAuto: function() {
-      this.pauseAuto();
-      this.autoStopped = !0
-    },
-    pauseAuto: function() {
-      if (this.timer !== null) window.clearTimeout(this.timer), this.timer = null
-    },
-    buttons: function(a, c) {
-      if (a == null && (a = !this.locked && this.options.size !== 0 && (this.options.wrap && this.options.wrap != "first" || this.options.size === null || this.last < this.options.size), !this.locked && (!this.options.wrap || this.options.wrap == "first") && this.options.size !== null && this.last >= this.options.size)) a = this.tail !== null && !this.inTail;
-      if (c == null && (c = !this.locked && this.options.size !== 0 && (this.options.wrap && this.options.wrap != "last" || this.first > 1), !this.locked && (!this.options.wrap || this.options.wrap == "last") && this.options.size !== null && this.first == 1)) c = this.tail !== null && this.inTail;
-      var b = this;
-      this.buttonNext.size() > 0 ? (this.buttonNext.unbind(this.options.buttonNextEvent + ".jcarousel", this.funcNext), a && this.buttonNext.bind(this.options.buttonNextEvent + ".jcarousel", this.funcNext), this.buttonNext[a ? "removeClass" : "addClass"](this.className("jcarousel-next-disabled")).attr("disabled", a ? !1 : !0), this.options.buttonNextCallback !== null && this.buttonNext.data("jcarouselstate") != a && this.buttonNext.each(function() {
-        b.options.buttonNextCallback(b, this, a)
-      }).data("jcarouselstate", a)) : this.options.buttonNextCallback !== null && this.buttonNextState != a && this.options.buttonNextCallback(b, null, a);
-      this.buttonPrev.size() > 0 ? (this.buttonPrev.unbind(this.options.buttonPrevEvent + ".jcarousel", this.funcPrev), c && this.buttonPrev.bind(this.options.buttonPrevEvent + ".jcarousel", this.funcPrev), this.buttonPrev[c ? "removeClass" : "addClass"](this.className("jcarousel-prev-disabled")).attr("disabled", c ? !1 : !0), this.options.buttonPrevCallback !== null && this.buttonPrev.data("jcarouselstate") != c && this.buttonPrev.each(function() {
-        b.options.buttonPrevCallback(b, this, c)
-      }).data("jcarouselstate", c)) : this.options.buttonPrevCallback !== null && this.buttonPrevState != c && this.options.buttonPrevCallback(b, null, c);
-      this.buttonNextState = a;
-      this.buttonPrevState = c
-    },
-    notify: function(a) {
-      var c = this.prevFirst === null ? "init" : this.prevFirst < this.first ? "next" : "prev";
-      this.callback("itemLoadCallback", a, c);
-      this.prevFirst !== this.first && (this.callback("itemFirstInCallback", a, c, this.first), this.callback("itemFirstOutCallback", a, c, this.prevFirst));
-      this.prevLast !== this.last && (this.callback("itemLastInCallback", a, c, this.last), this.callback("itemLastOutCallback", a, c, this.prevLast));
-      this.callback("itemVisibleInCallback", a, c, this.first, this.last, this.prevFirst, this.prevLast);
-      this.callback("itemVisibleOutCallback", a, c, this.prevFirst, this.prevLast, this.first, this.last)
-    },
-    callback: function(a, c, b, d, f, j, e) {
-      if (!(this.options[a] == null || typeof this.options[a] != "object" && c != "onAfterAnimation")) {
-        var h = typeof this.options[a] == "object" ? this.options[a][c] : this.options[a];
-        if (g.isFunction(h)) {
-          var i = this;
-          if (d === void 0) h(i, b, c);
-          else if (f === void 0) this.get(d).each(function() {
-            h(i, this, d, b, c)
-          });
-          else
-            for (var a = function(a) {
-              i.get(a).each(function() {
-                h(i, this, a, b, c)
-              })
-            }, k = d; k <= f; k++) k !== null && !(k >= j && k <= e) && a(k)
+    j = h;
+    l = this.dimension(h);
+    if (l === 0) throw Error("jCarousel: No width/height set for items. This will cause an infinite loop. Aborting...");
+    this.options.wrap != "circular" && this.options.size !== null && e > this.options.size ? m.push(h) : k && (i += l);
+    n += l;
+    if (n >= g) break;
+    e++
+  }
+  for (h = 0; h < m.length; h++) m[h].remove();
+    i > 0 && (this.list.css(this.wh, this.dimension(this.list) + i + "px"), d && (b -= i, this.list.css(this.lt, f.intval(this.list.css(this.lt)) - i + "px")));
+  i = a + o - 1;
+  if (this.options.wrap != "circular" && this.options.size && i > this.options.size) i = this.options.size;
+  if (e > i) {
+    o = 0;
+    e = i;
+    for (n = 0; ++o;) {
+      h = this.get(e--);
+      if (!h.length) break;
+      n += this.dimension(h);
+      if (n >= g) break
+    }
+}
+e = i - o + 1;
+this.options.wrap != "circular" && e < 1 && (e = 1);
+if (this.inTail && d) b += this.tail, this.inTail = !1;
+this.tail = null;
+if (this.options.wrap != "circular" && i == this.options.size && i - o + 1 >= 1 && (d = f.intval(this.get(i).css(!this.options.vertical ? "marginRight" : "marginBottom")), n - d > g)) this.tail = n - g - d;
+if (c && a === this.options.size && this.tail) b -= this.tail, this.inTail = !0;
+for (; a-- > e;) b += this.dimension(this.get(a));
+  this.prevFirst = this.first;
+this.prevLast = this.last;
+this.first = e;
+this.last = i;
+return b
+},
+animate: function(a, c) {
+  if (!this.locked && !this.animating) {
+    this.animating = !0;
+    var b = this,
+    d = function() {
+      b.animating = !1;
+      a === 0 && b.list.css(b.lt, 0);
+      !b.autoStopped && (b.options.wrap == "circular" || b.options.wrap == "both" || b.options.wrap == "last" || b.options.size === null || b.last < b.options.size || b.last == b.options.size && b.tail !== null && !b.inTail) && b.startAuto();
+      b.buttons();
+      b.notify("onAfterAnimation");
+      if (b.options.wrap == "circular" && b.options.size !== null)
+        for (var c = b.prevFirst; c <= b.prevLast; c++) c !== null && !(c >= b.first && c <= b.last) && (c < 1 || c > b.options.size) && b.remove(c)
+      };
+    this.notify("onBeforeAnimation");
+    if (!this.options.animation || c === !1) this.list.css(this.lt, a + "px"), d();
+    else {
+      var f = !this.options.vertical ? this.options.rtl ? {
+        right: a
+      } : {
+        left: a
+      } : {
+        top: a
+      },
+      d = {
+        duration: this.options.animation,
+        easing: this.options.easing,
+        complete: d
+      };
+      if (g.isFunction(this.options.animationStepCallback)) d.step = this.options.animationStepCallback;
+      this.list.animate(f, d)
+    }
+  }
+},
+startAuto: function(a) {
+  if (a !== void 0) this.options.auto = a;
+  if (this.options.auto === 0) return this.stopAuto();
+  if (this.timer === null) {
+    this.autoStopped = !1;
+    var c = this;
+    this.timer = window.setTimeout(function() {
+      c.next()
+    }, this.options.auto * 1E3)
+  }
+},
+stopAuto: function() {
+  this.pauseAuto();
+  this.autoStopped = !0
+},
+pauseAuto: function() {
+  if (this.timer !== null) window.clearTimeout(this.timer), this.timer = null
+},
+buttons: function(a, c) {
+  if (a == null && (a = !this.locked && this.options.size !== 0 && (this.options.wrap && this.options.wrap != "first" || this.options.size === null || this.last < this.options.size), !this.locked && (!this.options.wrap || this.options.wrap == "first") && this.options.size !== null && this.last >= this.options.size)) a = this.tail !== null && !this.inTail;
+  if (c == null && (c = !this.locked && this.options.size !== 0 && (this.options.wrap && this.options.wrap != "last" || this.first > 1), !this.locked && (!this.options.wrap || this.options.wrap == "last") && this.options.size !== null && this.first == 1)) c = this.tail !== null && this.inTail;
+  var b = this;
+  this.buttonNext.size() > 0 ? (this.buttonNext.unbind(this.options.buttonNextEvent + ".jcarousel", this.funcNext), a && this.buttonNext.bind(this.options.buttonNextEvent + ".jcarousel", this.funcNext), this.buttonNext[a ? "removeClass" : "addClass"](this.className("jcarousel-next-disabled")).attr("disabled", a ? !1 : !0), this.options.buttonNextCallback !== null && this.buttonNext.data("jcarouselstate") != a && this.buttonNext.each(function() {
+    b.options.buttonNextCallback(b, this, a)
+  }).data("jcarouselstate", a)) : this.options.buttonNextCallback !== null && this.buttonNextState != a && this.options.buttonNextCallback(b, null, a);
+  this.buttonPrev.size() > 0 ? (this.buttonPrev.unbind(this.options.buttonPrevEvent + ".jcarousel", this.funcPrev), c && this.buttonPrev.bind(this.options.buttonPrevEvent + ".jcarousel", this.funcPrev), this.buttonPrev[c ? "removeClass" : "addClass"](this.className("jcarousel-prev-disabled")).attr("disabled", c ? !1 : !0), this.options.buttonPrevCallback !== null && this.buttonPrev.data("jcarouselstate") != c && this.buttonPrev.each(function() {
+    b.options.buttonPrevCallback(b, this, c)
+  }).data("jcarouselstate", c)) : this.options.buttonPrevCallback !== null && this.buttonPrevState != c && this.options.buttonPrevCallback(b, null, c);
+  this.buttonNextState = a;
+  this.buttonPrevState = c
+},
+notify: function(a) {
+  var c = this.prevFirst === null ? "init" : this.prevFirst < this.first ? "next" : "prev";
+  this.callback("itemLoadCallback", a, c);
+  this.prevFirst !== this.first && (this.callback("itemFirstInCallback", a, c, this.first), this.callback("itemFirstOutCallback", a, c, this.prevFirst));
+  this.prevLast !== this.last && (this.callback("itemLastInCallback", a, c, this.last), this.callback("itemLastOutCallback", a, c, this.prevLast));
+  this.callback("itemVisibleInCallback", a, c, this.first, this.last, this.prevFirst, this.prevLast);
+  this.callback("itemVisibleOutCallback", a, c, this.prevFirst, this.prevLast, this.first, this.last)
+},
+callback: function(a, c, b, d, f, j, e) {
+  if (!(this.options[a] == null || typeof this.options[a] != "object" && c != "onAfterAnimation")) {
+    var h = typeof this.options[a] == "object" ? this.options[a][c] : this.options[a];
+    if (g.isFunction(h)) {
+      var i = this;
+      if (d === void 0) h(i, b, c);
+      else if (f === void 0) this.get(d).each(function() {
+        h(i, this, d, b, c)
+      });
+        else
+          for (var a = function(a) {
+            i.get(a).each(function() {
+              h(i, this, a, b, c)
+            })
+          }, k = d; k <= f; k++) k !== null && !(k >= j && k <= e) && a(k)
         }
       }
     },
@@ -439,10 +455,10 @@ function change_embeded(video_id){
     },
     format: function(a, c) {
       for (var a = g(a), b = a.get(0).className.split(" "), d = 0; d < b.length; d++) b[d].indexOf("jcarousel-") != -1 && a.removeClass(b[d]);
-      a.addClass(this.className("jcarousel-item")).addClass(this.className("jcarousel-item-" + c)).css({
-        "float": this.options.rtl ? "right" : "left",
-        "list-style": "none"
-      }).attr("jcarouselindex", c);
+        a.addClass(this.className("jcarousel-item")).addClass(this.className("jcarousel-item-" + c)).css({
+          "float": this.options.rtl ? "right" : "left",
+          "list-style": "none"
+        }).attr("jcarouselindex", c);
       return a
     },
     className: function(a) {
@@ -465,28 +481,28 @@ function change_embeded(video_id){
       return Math.round(((a - 1) / c - Math.floor((a - 1) / c)) * c) + 1
     }
   });
-  f.extend({
-    defaults: function(a) {
-      return g.extend(q, a || {})
-    },
-    intval: function(a) {
-      a = parseInt(a, 10);
-      return isNaN(a) ? 0 : a
-    },
-    windowLoaded: function() {
-      m = !0
-    }
-  });
-  g.fn.jcarousel = function(a) {
-    if (typeof a == "string") {
-      var c = g(this).data("jcarousel"),
-        b = Array.prototype.slice.call(arguments, 1);
-      return c[a].apply(c, b)
-    } else return this.each(function() {
-      var b = g(this).data("jcarousel");
-      b ? (a && g.extend(b.options, a), b.reload()) : g(this).data("jcarousel", new f(this, a))
-    })
+f.extend({
+  defaults: function(a) {
+    return g.extend(q, a || {})
+  },
+  intval: function(a) {
+    a = parseInt(a, 10);
+    return isNaN(a) ? 0 : a
+  },
+  windowLoaded: function() {
+    m = !0
   }
+});
+g.fn.jcarousel = function(a) {
+  if (typeof a == "string") {
+    var c = g(this).data("jcarousel"),
+    b = Array.prototype.slice.call(arguments, 1);
+    return c[a].apply(c, b)
+  } else return this.each(function() {
+    var b = g(this).data("jcarousel");
+    b ? (a && g.extend(b.options, a), b.reload()) : g(this).data("jcarousel", new f(this, a))
+  })
+}
 })(jQuery);
 
 // var videoResize = function(){
