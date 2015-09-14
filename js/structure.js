@@ -1,3 +1,16 @@
+var resizeWindow = function() {
+    //adjusting the body size dynamically
+    var $headerfooter=$("header").height()+$("footer").height();
+    var $bodyheight=$(window).height()-$headerfooter;
+    $(".body").css("height",$bodyheight);
+
+
+    //adjusting position of wrapper dynamically
+    $("#wrapper").css("top",(.1*$bodyheight));
+    var $wrapperheight = $bodyheight;
+    $("#wrapper").css("height",$wrapperheight);
+};
+
 var magic_line = function() {
     var $el, leftPos, newWidth,
         $mainNav = $(".navigation");
@@ -31,24 +44,11 @@ var magic_line = function() {
             width: $magicLine.data("origWidth")
         },200);
     });
-};
 
-var resizeWindow = function() {
-	//adjusting the body size dynamically
-	var $headerfooter=$("header").height()+$("footer").height();
-	var $bodyheight=$(window).height()-$headerfooter;
-	$(".body").css("height",$bodyheight);
-
-
-	//adjusting position of wrapper dynamically
-	$("#wrapper").css("top",(.1*$bodyheight));
-	var $wrapperheight = .8*$bodyheight;
-	$("#wrapper").css("height",$wrapperheight);
+    resizeWindow();
 };
 
 window.onload = magic_line;
-$(document).ready(resizeWindow);
 
 
 $(window).resize(magic_line);
-$(window).resize(resizeWindow);
