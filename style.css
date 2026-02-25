@@ -390,6 +390,26 @@ footer {
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.default-thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.default-thumbnail svg {
+  width: 36px;
+  height: 36px;
+  color: var(--text-muted);
+  opacity: 0.8;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.audio-card:hover .default-thumbnail svg {
+  color: var(--accent);
+  opacity: 1;
+}
+
 .audio-content {
   display: flex;
   flex-direction: column;
