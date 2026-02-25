@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     let imageHTML = '';
                     if (track.image) {
-                        imageHTML = `<img src="/media/images/${track.image}" alt="${track.title} artwork" class="audio-thumbnail" />`;
+                        imageHTML = `<img src="/media/images/${encodeURIComponent(track.image)}" alt="${track.title} artwork" class="audio-thumbnail" />`;
                     } else {
                         imageHTML = `
                             <div class="audio-thumbnail default-thumbnail">
