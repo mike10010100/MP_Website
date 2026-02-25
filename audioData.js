@@ -2,7 +2,7 @@ export const voiceOvers = [
     {
         category: "Commercial Demos",
         tracks: [
-            { id: "Michael Paulauski Demo", title: "Commercial Demo reel", file: "Michael Paulauski Demo.mp3" },
+            { id: "Michael Paulauski Demo", title: "Commercial Demo reel", file: "Michael Paulauski Demo.mp3", image: "Michael_photo_website.jpg" },
             { id: "MichaelPaulauskiDemo_v1", title: "Commercial Demo v1", file: "MichaelPaulauskiDemo_v1.mp3" },
             { id: "2004 Michael_Paulauski_KT", title: "2004 Commercial Demo", file: "2004 Michael_Paulauski_KT.mp3" },
         ]
@@ -11,16 +11,16 @@ export const voiceOvers = [
         category: "Theatrical & Musical Samplers",
         tracks: [
             { id: "Broadway Sampler", title: "Broadway Sampler", file: "Broadway Sampler.mp3" },
-            { id: "Country Sampler", title: "Country Sampler", file: "Country Sampler.mp3" },
-            { id: "Pop Sampler", title: "Pop Sampler", file: "Pop Sampler.mp3" },
-            { id: "Rock n' Roll Mix", title: "Rock 'n' Roll Mix", file: "Rock n' Roll Mix.mp3" },
-            { id: "XMAS SAMPLER", title: "Christmas Sampler", file: "XMAS SAMPLER.mp3" }
+            { id: "Country Sampler", title: "Country Sampler", file: "Country Sampler.mp3", image: "Countdown Kids Country.jpg" },
+            { id: "Pop Sampler", title: "Pop Sampler", file: "Pop Sampler.mp3", image: "Pop 4 Kids.jpg" },
+            { id: "Rock n' Roll Mix", title: "Rock 'n' Roll Mix", file: "Rock n' Roll Mix.mp3", image: "Countdown Kids Rock and Roll.jpg" },
+            { id: "XMAS SAMPLER", title: "Christmas Sampler", file: "XMAS SAMPLER.mp3", image: "Countdown Kids Christmas.jpg" }
         ]
     },
     {
         category: "Walt Disney World",
         tracks: [
-            { id: "22 - MK Evening Farewell", title: "Magic Kingdom Evening Farewell", file: "22 - MK Evening Farewell.mp3" },
+            { id: "22 - MK Evening Farewell", title: "Magic Kingdom Evening Farewell", file: "22 - MK Evening Farewell.mp3", image: "100-years-of-Disney-Magic.gif" },
             { id: "01 - Track01", title: "Disney Park Announcement 1", file: "01 - Track01.mp3" },
             { id: "02 - Track02", title: "Disney Park Announcement 2", file: "02 - Track02.mp3" },
             { id: "03 - Track03", title: "Disney Park Announcement 3", file: "03 - Track03.mp3" },
@@ -36,7 +36,7 @@ export const voiceOvers = [
     {
         category: "Great Wolf Lodge",
         tracks: [
-            { id: "Great Wolf Lodge 1", title: "Great Wolf Lodge Track 1", file: "Great Wolf Lodge 1.mp3" },
+            { id: "Great Wolf Lodge 1", title: "Great Wolf Lodge Track 1", file: "Great Wolf Lodge 1.mp3", image: "GreatClockTower 1.jpg" },
             { id: "Great Wolf Lodge 2", title: "Great Wolf Lodge Track 2", file: "Great Wolf Lodge 2.mp3" },
             { id: "Great Wolf Lodge 3", title: "Great Wolf Lodge Track 3", file: "Great Wolf Lodge 3.mp3" }
         ]
@@ -44,8 +44,8 @@ export const voiceOvers = [
     {
         category: "Other Clients",
         tracks: [
-            { id: "Valencia Community College VO", title: "Valencia Community College VO", file: "Valencia Community College VO.mp3" },
-            { id: "The Land of Make Believe Barney", title: "Barney: The Land of Make Believe", file: "The Land of Make Believe Barney.mp3" }
+            { id: "Valencia Community College VO", title: "Valencia Community College VO", file: "Valencia Community College VO.mp3", image: "VCC.ht1.jpg" },
+            { id: "The Land of Make Believe Barney", title: "Barney: The Land of Make Believe", file: "The Land of Make Believe Barney.mp3", image: "Barney.jpg" }
         ]
     }
 ];

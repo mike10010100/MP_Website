@@ -57,12 +57,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 categoryObj.tracks.forEach(track => {
                     const card = document.createElement('div');
                     card.className = 'audio-card';
+
+                    let imageHTML = '';
+                    if (track.image) {
+                        imageHTML = `<img src="/media/images/${track.image}" alt="${track.title} artwork" class="audio-thumbnail" />`;
+                    }
+
                     card.innerHTML = `
-                        <h3>${track.title}</h3>
-                        <audio controls controlsList="nodownload">
-                            <source src="/media/audio/${encodeURIComponent(track.file)}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
+                        ${imageHTML}
+                        <div class="audio-content">
+                            <h3>${track.title}</h3>
+                            <audio controls controlsList="nodownload">
+                                <source src="/media/audio/${encodeURIComponent(track.file)}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
                     `;
                     grid.appendChild(card);
                 });
