@@ -1,5 +1,3 @@
-import './style.css';
-
 document.addEventListener('DOMContentLoaded', () => {
     // Highlight active nav link based on current URL
     const path = window.location.pathname;
