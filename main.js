@@ -1,3 +1,5 @@
+import { voiceOvers } from './audioData.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Highlight active nav link based on current URL
     const path = window.location.pathname;
@@ -25,13 +27,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
                 card.innerHTML = `
-          <iframe 
-            src="https://www.youtube.com/embed/${id}?rel=0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-        `;
+                    <iframe 
+                        src="https://www.youtube.com/embed/${id}?rel=0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                `;
                 grid.appendChild(card);
+            });
+        }
+    }
+
+    // voiceover.html logic
+    if (path.includes('voiceover.html')) {
+        const container = document.querySelector('.audio-container');
+        if (container) {
+            voiceOvers.forEach(categoryObj => {
+                // Create Category Section
+                const section = document.createElement('section');
+                section.className = 'audio-section';
+
+                const title = document.createElement('h2');
+                title.textContent = categoryObj.category;
+                section.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'audio-grid';
+
+                categoryObj.tracks.forEach(track => {
+                    const card = document.createElement('div');
+                    card.className = 'audio-card';
+                    card.innerHTML = `
+                        <h3>${track.title}</h3>
+                        <audio controls controlsList="nodownload">
+                            <source src="/media/audio/${encodeURIComponent(track.file)}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                container.appendChild(section);
             });
         }
     }
