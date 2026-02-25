@@ -35,7 +35,7 @@
 
   var yt_videos = [];
 
-  jQuery.ajax({url:'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLEX-_F3-HYxaWz3X8wkWmhFqM7F3_gWaS&key=AIzaSyAyOxip_T9wTqSWVv-OX060s-OnyYbQAJ0', async:false, success: function(result){
+  jQuery.ajax({url:'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLEX-_F3-HYxaWz3X8wkWmhFqM7F3_gWaS&key=YOUR_YOUTUBE_API_KEY', async:false, success: function(result){
     for (var i = 0; i < result.items.length; i++){
       yt_videos.push(result.items[i].snippet.resourceId.videoId);
     }
