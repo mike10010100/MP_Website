@@ -2,33 +2,41 @@ import { voiceOvers } from './audioData.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Highlight active nav link based on current URL
-    const path = window.location.pathname;
+    const rawPath = window.location.pathname.replace(/\/$/, '') || '/';
     const links = document.querySelectorAll('nav a');
 
     links.forEach(link => {
         link.classList.remove('active');
+        link.removeAttribute('aria-current');
         const href = link.getAttribute('href');
-        if (path.includes(href) || (path === '/' && href === '/index.html')) {
+        const isHome = (rawPath === '/' || rawPath.endsWith('/index.html')) &&
+            (href === 'index.html' || href === '/index.html' || href === '/');
+        const isMatch = isHome || (rawPath.endsWith(href) && href !== 'index.html');
+        if (isMatch) {
             link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
         }
     });
 
     // videos.html logic
-    if (path.includes('videos.html')) {
+    if (rawPath.includes('videos.html')) {
         const yt_videos = [
-            'CniOgbpLEd8', 'Vzf97_2pXbQ', 'Jt7Ryhyhnuo',
-            'uscmIf_HFjs', 'XffAUETbFmg', 'qHvebJpfbXI',
-            'BPNPc703ciE', 'WlzAQRmo_F0'
+            { id: 'CniOgbpLEd8', title: 'Warm as the Autumn Light - Michael Paulauski' },
+            { id: 'bAdFoWtz6ZA', title: 'Deuce Bigalow: Male Gigolo - Michael Paulauski' },
+            { id: 'CNXnwKeJJW0', title: 'Have Yourself A Merry Little Christmas - Stevens Institute Jazz Band' },
+            { id: 'WlzAQRmo_F0', title: 'Michael Demo Reel (Remix)' }
         ];
 
         const grid = document.querySelector('.video-grid');
         if (grid) {
-            yt_videos.forEach(id => {
+            yt_videos.forEach(video => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
                 card.innerHTML = `
                     <iframe 
-                        src="https://www.youtube.com/embed/${id}?rel=0" 
+                        src="https://www.youtube.com/embed/${video.id}?rel=0" 
+                        title="${video.title}"
+                        loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
@@ -39,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // voiceover.html logic
-    if (path.includes('voiceover.html')) {
+    if (rawPath.includes('voiceover.html')) {
         const container = document.querySelector('.audio-container');
         if (container) {
             voiceOvers.forEach(categoryObj => {
@@ -60,10 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     let imageHTML = '';
                     if (track.image) {
-                        imageHTML = `<img src="/media/images/${encodeURIComponent(track.image)}" alt="${track.title} artwork" class="audio-thumbnail" />`;
+                        imageHTML = `<img src="/media/images/${encodeURIComponent(track.image)}" alt="${track.title} artwork" class="audio-thumbnail" width="80" height="80" loading="lazy" />`;
                     } else {
                         imageHTML = `
-                            <div class="audio-thumbnail default-thumbnail">
+                            <div class="audio-thumbnail default-thumbnail" aria-hidden="true">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
                                     <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -91,4 +99,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // Audio mutual exclusion: pause any playing track when another begins
+    document.addEventListener('play', (e) => {
+        if (e.target.tagName === 'AUDIO') {
+            document.querySelectorAll('audio').forEach(otherAudio => {
+                if (otherAudio !== e.target && !otherAudio.paused) {
+                    otherAudio.pause();
+                }
+            });
+            document.querySelectorAll('.audio-card').forEach(card => {
+                card.classList.remove('is-playing');
+            });
+            const currentCard = e.target.closest('.audio-card');
+            if (currentCard) {
+                currentCard.classList.add('is-playing');
+            }
+        }
+    }, true);
+
+    document.addEventListener('pause', (e) => {
+        if (e.target.tagName === 'AUDIO') {
+            const currentCard = e.target.closest('.audio-card');
+            if (currentCard) {
+                currentCard.classList.remove('is-playing');
+            }
+        }
+    }, true);
 });

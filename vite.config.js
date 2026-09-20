@@ -9,7 +9,8 @@ export default defineConfig({
                 resume: resolve(__dirname, 'resume.html'),
                 videos: resolve(__dirname, 'videos.html'),
                 voiceover: resolve(__dirname, 'voiceover.html'),
-                contact: resolve(__dirname, 'contact.html')
+                contact: resolve(__dirname, 'contact.html'),
+                notFound: resolve(__dirname, '404.html')
             }
         }
     }
