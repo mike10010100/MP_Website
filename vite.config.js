@@ -5,12 +5,12 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'index.html'),
-                resume: resolve(__dirname, 'resume.html'),
-                videos: resolve(__dirname, 'videos.html'),
-                voiceover: resolve(__dirname, 'voiceover.html'),
-                contact: resolve(__dirname, 'contact.html'),
-                notFound: resolve(__dirname, '404.html')
+                main: resolve(import.meta.dirname, 'index.html'),
+                resume: resolve(import.meta.dirname, 'resume.html'),
+                videos: resolve(import.meta.dirname, 'videos.html'),
+                voiceover: resolve(import.meta.dirname, 'voiceover.html'),
+                contact: resolve(import.meta.dirname, 'contact.html'),
+                notFound: resolve(import.meta.dirname, '404.html')
             }
         }
     }
